@@ -1,4 +1,4 @@
-package dbconfig
+package models
 
 import (
 	"fmt"
@@ -17,16 +17,13 @@ var (
 	dbName string
 )
 
-// // Database is a wrapper around the SQL database
-// // to allow addition of methods
-// type Database struct {
-// 	db *sqlx.DB
-// }
-
-var DB *sqlx.DB
+// Database is a wrapper around the SQL database
+// to allow addition of methods
+type Database struct {
+	db *sqlx.DB
+}
 
 func init() {
-	fmt.Println("db.init start")
 	dbUser = os.Getenv("DB_USER")
 	dbPass = os.Getenv("DB_PASS")
 
@@ -65,10 +62,12 @@ func init() {
 	}
 
 	db.Close()
+}
 
-	DB = dbConn(dbUser, dbPass, dbIP, dbPort, dbName)
-	
-	log.Println("Database connection to successful!")
+// Init function is ued to initialize all the tables inside the database
+func Init(DB *Database) {
+
+	DB.UserInit()
 }
 
 // Init is used to initialize the SQL Database
@@ -100,10 +99,10 @@ func init() {
 
 // New returns an instance of Database
 // Use this when you don't want to clear the DB
-// func New() *Database {
-// 	db := dbConn(dbUser, dbPass, dbIP, dbPort, dbName)
+func New() *Database {
+	db := dbConn(dbUser, dbPass, dbIP, dbPort, dbName)
 
-// 	return &Database{
-// 		db: db,
-// 	}
-// }
+	return &Database{
+		db: db,
+	}
+}

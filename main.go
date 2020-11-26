@@ -1,27 +1,31 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+	"os"
 
-	"github.com/csivitu/accounts/config/routerconfig"
+	"github.com/csivitu/accounts/models"
 	"github.com/csivitu/accounts/routers"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/gorilla/mux"
 )
 
-func homePage(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to homepage")
-	fmt.Println("Endpoint hit: homePage")
-}
+func handleRequests(DB *models.Database) {
+	router := mux.NewRouter()
+	routers.Init(router, DB)
 
-func handleRequests() {
+	port := os.Getenv("SERVER_PORT")
+	if port == "" {
+		log.Println("PORT was not set, using 10000")
+		port = ":10000"
+	}
 
-	routers.UserHandler(routerconfig.Router)
-
-	log.Fatal(http.ListenAndServe(":10000", routerconfig.Router))
+	log.Fatal(http.ListenAndServe(port, router))
 }
 
 func main() {
-	handleRequests()
+	DB := models.New()
+	models.Init(DB)
+	handleRequests(DB)
 }

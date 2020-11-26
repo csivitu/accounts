@@ -5,7 +5,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func UserHandler(router *mux.Router) {
-	router.HandleFunc("/user/signup", controllers.Signup).Methods("POST")
-	router.HandleFunc("/user/login", controllers.Login).Methods("POST")
+func UserHandler(controller *controllers.Controller, router *mux.Router) {
+	router.HandleFunc("/user/signup", controller.Signup).Methods("POST")
+	router.HandleFunc("/user/login", controller.Login).Methods("POST")
 }

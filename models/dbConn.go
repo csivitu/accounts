@@ -1,4 +1,4 @@
-package dbconfig
+package models
 
 import (
 	"fmt"
@@ -13,7 +13,6 @@ func dbConn(dbUser string, dbPass string, dbIP string, dbPort int, dbName string
 	dbDriver := "mysql"
 
 	dbURI := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&autocommit=true&parseTime=true", dbUser, dbPass, dbIP, dbPort, dbName)
-	fmt.Println(dbURI)
 
 	db, err := sqlx.Open(dbDriver, dbURI)
 
@@ -25,18 +24,18 @@ func dbConn(dbUser string, dbPass string, dbIP string, dbPort int, dbName string
 	return db
 }
 
-// // Ping allows you to ping the database
-// // and check if connection is possible
-// func (DB *Database) Ping() {
-// 	err := DB.db.Ping()
+// Ping allows you to ping the database
+// and check if connection is possible
+func (DB *Database) Ping() {
+	err := DB.db.Ping()
 
-// 	if err != nil {
-// 		log.Fatal("Could not ping DB!")
-// 	}
-// }
+	if err != nil {
+		log.Fatal("Could not ping DB!")
+	}
+}
 
-// // Close closes the connetion to the database,
-// // can call this with defer in main
-// func (DB *Database) Close() {
-// 	DB.db.Close()
-// }
+// Close closes the connetion to the database,
+// can call this with defer in main
+func (DB *Database) Close() {
+	DB.db.Close()
+}

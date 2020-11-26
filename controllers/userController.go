@@ -5,21 +5,12 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/csivitu/accounts/config/dbconfig"
 	"github.com/csivitu/accounts/models"
 	"github.com/csivitu/accounts/utils"
-
-	"github.com/jmoiron/sqlx"
 )
 
-var db *sqlx.DB
-
-func init() {
-	db = dbconfig.DB
-}
-
 // Signup controller function
-func Signup(w http.ResponseWriter, r *http.Request) {
+func (c *Controller) Signup(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	type response struct {
@@ -38,7 +29,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	}
 	user.Password = hashedPassword
 
-	err = models.CreateUser(&user)
+	err = c.DB.CreateUser(&user)
 
 	if err != nil {
 		json.NewEncoder(w).Encode(&response{Status: "failure", Message: "Error signing up user"})
@@ -50,7 +41,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 }
 
 //Login controller function
-func Login(w http.ResponseWriter, r *http.Request) {
+func (c *Controller) Login(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	type loginData struct {
@@ -61,7 +52,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	var lgnDta loginData
 	json.NewDecoder(r.Body).Decode(&lgnDta)
 
-	existingUser, err := models.GetUserByUsername(lgnDta.Username)
+	existingUser, err := c.DB.GetUserByUsername(lgnDta.Username)
 
 	type response struct {
 		Status  string      `json:"status"`
