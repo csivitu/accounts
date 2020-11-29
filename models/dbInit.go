@@ -71,6 +71,7 @@ func Init(DB *Database) {
 	
 }
 
+// New creates new database connection and returns Database struct
 func New() *Database {
 	db := dbConn(dbUser, dbPass, dbIP, dbPort, dbName)
 
