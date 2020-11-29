@@ -10,6 +10,9 @@ type User struct {
 	Email    string `db:"EMAIL" json:"email"`
 	Username string `db:"USERNAME" json:"username"`
 	Password string `db:"PASSWORD" json:"password"`
+	Mobile string `db:"MOBILE" json:"mobile"`
+	RegNo string `db:"REGNO" json:"regno"`
+	Gender string `db:"GENDER" json:"gender"`
 }
 
 // UserInit is used to initialize the users table
