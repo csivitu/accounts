@@ -31,7 +31,7 @@ func (DB *Database) UserInit() {
 
 	if err != nil {
 		log.Println(err)
-		log.Fatal("Error initializing Users Table")
+		log.Fatal("Error initializing users Table")
 	}
 
 }
