@@ -68,37 +68,9 @@ func init() {
 func Init(DB *Database) {
 
 	DB.UserInit()
+	
 }
 
-// Init is used to initialize the SQL Database
-// func Init() error {
-	
-
-// 	defer DB.Close()
-
-// 	_, err = DB.db.Exec("DROP TABLE IF EXISTS users")
-// 	if err != nil {
-// 		return err
-// 	}
-	
-	// _, err = DB.db.Exec(`
-	// 	CREATE TABLE users (
-	// 		ID            INT NOT NULL PRIMARY KEY,
-	// 		EMAIL         VARCHAR(256) UNIQUE NOT NULL,
-	// 		USERNAME      VARCHAR(128) UNIQUE NOT NULL,
-	// 		PASSWORD	  VARCHAR(256) NOT NULL
-	// 	);
-	// `)
-	// if err != nil {
-	// 	return err
-	// }
-
-// 	log.Println("Database initialized, tables created.")
-// 	return nil
-// }
-
-// New returns an instance of Database
-// Use this when you don't want to clear the DB
 func New() *Database {
 	db := dbConn(dbUser, dbPass, dbIP, dbPort, dbName)
 
