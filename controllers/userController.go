@@ -69,7 +69,7 @@ func (c *Controller) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if existingUser == (models.User{}) || !utils.CheckPasswordHash(lgnDta.Password, existingUser.Password) {
+	if existingUser == (models.User{}) || utils.CheckPasswordHash(lgnDta.Password, existingUser.Password) != nil {
 		json.NewEncoder(w).Encode(&response{
 			Status:  "failure",
 			Message: "invalid login credentials",
