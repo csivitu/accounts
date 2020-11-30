@@ -25,6 +25,6 @@ func (DB *Database) AcessTokenInit() {
 
 	if err != nil {
 		log.Println(err)
-		log.Fatal("Error initializing clients Table")
+		log.Fatal("Error initializing acsesstokens Table")
 	}
 }
