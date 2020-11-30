@@ -10,7 +10,7 @@ type RedirectURI struct {
 	ClientID string `db:"CLIENT_ID" json:"clientID"`
 }
 
-// RedirectURIInit is used to initialize the clients table
+// RedirectURIInit is used to initialize the redirecturis table
 func (DB *Database) RedirectURIInit() {
 
 	_, err := DB.db.Exec(`
