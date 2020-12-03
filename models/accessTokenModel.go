@@ -2,13 +2,14 @@ package models
 
 import (
 	"log"
+	"time"
 )
 
 // AccessToken struct to be used by controllers
 type AccessToken struct {
 	Token string `db:"TOKEN" json:"token"`
 	Scope string `db:"SCOPE" json:"scope"`
-	ExpiresAt string `db:"EXPIRES_AT" json:"expiresAt"`
+	ExpiresAt time.Time `db:"EXPIRES_AT" json:"expiresAt"`
 }
 
 // AccessTokenInit is used to initialize the accesstokens table
