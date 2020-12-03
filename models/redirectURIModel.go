@@ -2,6 +2,7 @@ package models
 
 import (
 	"log"
+	"fmt"
 )
 
 // RedirectURI struct to be used by controllers
@@ -24,4 +25,19 @@ func (DB *Database) RedirectURIInit() {
 		log.Println(err)
 		log.Fatal("Error initializing redirecturis Table")
 	}
+}
+
+
+// CheckRedirectURIForClient checks if the redirectURI is registered for the client
+func (DB *Database) CheckRedirectURIForClient(redirectURI string, clientID string) (bool, error) {
+	query := fmt.Sprintf("SELECT * FROM redirecturis WHERE REDIRECT_URI='%s' AND CLIENT_ID='%s'",redirectURI,clientID)
+
+	redirectURIs := []RedirectURI{}
+	err := DB.db.Select(&redirectURIs,query)
+
+	if (err != nil) || (err == nil && len(redirectURIs) == 0) {
+		return false, err
+	}
+
+	return true, nil;
 }
