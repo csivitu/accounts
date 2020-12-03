@@ -12,5 +12,6 @@ func Init(router *mux.Router, DB *models.Database) {
 	c := controllers.New(DB)
 
 	UserHandler(c, router)
+	OAuthHandler(c, router)
 	
 }
