@@ -80,6 +80,7 @@ func (c *Controller) Login(w http.ResponseWriter, r *http.Request) {
 			Message: "user exists",
 			User:    existingUser,
 		})
+		
 	}
 
 }
